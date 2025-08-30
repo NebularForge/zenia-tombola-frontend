@@ -1,0 +1,606 @@
+/* ============================ Tombola Royale — Styles (CSS complet, propre, corrigé et amélioré) ============================ */
+
+/* ---------- Variables ---------- */
+:root {
+    --bg-1: #000000;
+    --bg-2: #0f1020;
+    --gold-1: #c68b00;
+    --gold-2: #ff5100a2; /* conservé */
+    --accent: #f5d7bb8e; /* conservé */
+    --deep: #00a2ff;
+    --blue-sky: #87ceeb; /* Bleu ciel */
+    --green-bright: #4e574e;
+    --red-danger: #e74c3c;
+    --orange-red: #ff4500;
+    --orange-red-light: #ff7f50;
+    --glass: rgba(255,255,255,0.04);
+    --muted: #000000;
+    --success: #6ee7b7;
+    --danger: #ff6b6b;
+    --shadow-strong: rgba(253, 0, 0, 0.6);
+}
+
+/* ---------- Reset & Base (limité au tombola, éviter impact global) ---------- */
+.tw-page * {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
+}
+
+.tw-page,
+.tw-page #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+html, body { height: 100%; margin: 0; padding: 0; background: var(--bg-1);  overflow-x: hidden;}
+.tw-page {
+    font-family: "Inter", "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: radial-gradient(circle at 20% 10%, rgba(255, 215, 120, 0.06), transparent 10%),
+                radial-gradient(circle at 80% 90%, rgba(255, 200, 80, 0.04), transparent 12%),
+                linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+    color: #fff;
+    -webkit-user-select: none;
+    user-select: none;
+    padding: 12px 24px 24px; /* plus d’espace bas pour descendre roue */
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    gap: 8px;
+    position: relative;
+}
+
+.tw-page.spinning .tw-btn {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* ---------- Center / Wheel wrap ---------- */
+.tw-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex: 1;
+    position: relative; /* important pour z-index flèche */
+    z-index: 10;
+}
+
+.tw-wheel-wrap {
+    position: relative;
+    width: 520px;
+    max-width: 92vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    margin-top: 32px; /* roue descend un peu plus */
+}
+
+/* ---------- Pointer (flèche) - repositionnée plus bas ---------- */
+.tw-pointer {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10px; /* descend la flèche dans la roue */
+    z-index: 40;
+    pointer-events: none;
+    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.6));
+}
+
+.tw-pointer-tip {
+    width: 0;
+    height: 0;
+    border-left: 22px solid transparent;
+    border-right: 22px solid transparent;
+    border-top: 40px solid #7a1fa2; /* violet profond */
+    border-radius: 3px;
+    position: relative;
+    transform: translateY(4px);
+    transition: transform 0.18s ease;
+    box-shadow: 0 -8px 18px rgba(0, 0, 0, 0.6);
+}
+
+.tw-pointer-tip::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -6px; /* légèrement intégré dans la roue */
+    width: 14px;
+    height: 14px;
+    background: radial-gradient(circle at 30% 30%, #4a00ff, #9b59b6);
+    border-radius: 50%;
+    box-shadow: 0 0 20px 6px rgba(75, 0, 255, 0.9);
+}
+
+/* Flèche légère animation d’impulsion */
+.tw-page:not(.spinning) .tw-pointer-tip {
+    animation: pointerBobb 2.8s infinite;
+}
+
+/* ---------- La roue ---------- */
+.tw-wheel {
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    position: relative;
+    margin: 48px auto 0; /* plus d’espace au-dessus pour décaler vers le bas */
+    display: block;
+    overflow: visible;
+    transition: transform 5s cubic-bezier(0.18, 0.89, 0.32, 1);
+    transform: rotate(0deg);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.6), inset 0 6px 18px rgba(255, 230, 170, 0.02);
+    z-index: 10;
+    will-change: transform;
+    background: transparent;
+}
+
+/* Anneau brillant autour de la roue */
+.tw-wheel::before {
+    content: "";
+    position: absolute;
+    inset: -14px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, rgba(255, 240, 160, 0.06), rgba(0, 0, 0, 0.12));
+    box-shadow: 0 12px 40px rgba(197, 139, 0, 0.18);
+    z-index: 12;
+}
+
+/* Bord métallique */
+.tw-wheel::after {
+    content: "";
+    position: absolute;
+    inset: -28px;
+    border-radius: 50%;
+    background: conic-gradient(rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.04));
+    z-index: 2;
+    filter: blur(2px);
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+/* Face segment (avec espaces entre les segments) */
+/* Face segment (dégradé doré de base) */ .tw-wheel-face { position: absolute; inset: 0; border-radius: 50%; z-index: 6; overflow: hidden; }
+
+/* ---------- Labels segments ---------- */
+.tw-segment-label {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+     top: 50%;
+    left: 50%;
+     display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+    transform-origin: 0% 0%;
+    pointer-events: none;
+    z-index: 14; /* forme triangulaire style pizza */
+      clip-path: none; /* reset */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* contenu en haut */
+    overflow: visible;
+}
+
+/* ---------- Contenu segment ---------- */
+/* Supprimer le fond et box-shadow coloré pour tous les segments */
+.tw-segment-content {
+    position: absolute; /* conteneur de référence */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* centre verticalement */
+    height: 100%;
+    width: 100%;
+}
+
+/* ---------- Images dans segments ---------- */
+.seg-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 12px;
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.5)) drop-shadow(0 0 15px rgba(255,215,0,0.55));
+    margin-bottom: 8px;
+    transition: transform 0.3s ease;
+}
+
+
+.tw-segment-content:hover .seg-img {
+    transform: scale(1.12);
+}
+
+/* Texte segment */
+.seg-text {
+  
+  display: inline-block; /* Pour respecter le padding */
+  font-weight: 600;
+  font-size: 1.4em;
+  padding: 8px 12px;
+  color: #fff; /* Assure la visibilité du texte */
+  background: transparent; /* Pas besoin de !important */
+  border: none;
+  border-radius: 50px;
+  box-shadow: inset 0 0 2px rgba(255, 255, 255, 0.05); /* léger contour */
+  letter-spacing: 0.6px;
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+
+  
+}
+/* ---------- Ticket ---------- */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(228, 47, 2, 0.404);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.overlay-panel {
+  background: #00051d;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  width: 300px;
+}
+
+.ticket-count {
+  font-size: 40px;
+  color: #e4e3e3;
+  margin: 20px 0;
+  font-weight: bold;
+}
+
+input[type="range"] {
+  width: 100%;
+}
+/*Conpteur/*
+/* Compteur de tickets en haut à gauche */
+.ticket-counter {
+  position: fixed;       /* reste visible même quand tu scroll */   
+  left: 100px;            /* ou right: 20px; pour droite */
+  background-color: rgba(4, 137, 214, 0.7); /* fond semi-transparent noir */
+  color: #fff;           /* texte blanc */
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  z-index: 1000;         /* pour être au-dessus de tout */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Petite animation pour quand le compteur augmente */
+.ticket-counter.animate {
+  animation: pulse 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+
+/* ---------- Hover / active ---------- */
+.tw-segment-content:hover {
+    transform: translateY(-6px) scale(1.02);
+    z-index: 30;
+}
+
+.tw-wheel-wrap:active .tw-segment-content {
+    transform: translateY(-2px);
+}
+
+/* ---------- Animation gagnant ---------- */
+.tw-segment-win {
+    animation: winPulse 0.55s ease-in-out infinite alternate;
+    z-index: 50 !important;
+    filter: drop-shadow(0 12px 34px rgba(255, 210, 80, 0.85));
+    transform-origin: center;
+}
+
+@keyframes winPulse {
+    0% {
+        transform: scale(1);
+        filter: drop-shadow(0 12px 34px rgba(255, 210, 80, 0.85));
+    }
+    100% {
+        transform: scale(1.12);
+        filter: drop-shadow(0 18px 52px rgba(255, 255, 140, 1));
+    }
+}
+
+/* ---------- Cercle central ---------- */
+.tw-center-cap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 102px;
+    height: 102px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, #ff9901, #f5e3ad);
+    box-shadow: inset 0 3px 14px rgba(255, 255, 255, 0.2),
+                inset 0 -3px 18px rgba(0, 0, 0, 0.5),
+                0 6px 16px rgba(0, 0, 0, 0.5);
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    pointer-events: none;
+    filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.4));
+}
+
+.tw-cap-inner {
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff, #ffd700);
+    box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.3);
+    margin: 20px auto;
+}
+
+/* ---------- Boutons ---------- */
+.tw-controls {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin: 20px 0 12px;
+    flex-wrap: wrap;
+}
+
+.tw-btn {
+    background: var(--gold-1);
+    border: none;
+    padding: 14px 36px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    border-radius: 32px;
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 4px 12px rgba(198, 139, 0, 0.9);
+    transition: background 0.28s ease, box-shadow 0.28s ease;
+    min-width: 160px;
+}
+
+.tw-btn:hover:not(:disabled) {
+    background: var(--gold-2);
+    box-shadow: 0 8px 28px rgba(227, 176, 74, 1);
+}
+
+.tw-btn:active:not(:disabled) {
+    background: var(--deep);
+    box-shadow: 0 2px 12px rgba(198, 139, 0, 0.8);
+    transform: translateY(2px);
+}
+
+.tw-btn:disabled,
+.tw-btn.disabled {
+    background: #444;
+    cursor: not-allowed;
+    box-shadow: none;
+    color: #999;
+}
+
+/* Bouton "grands gagnants" */
+.tw-crown {
+    background: linear-gradient(135deg, #ffdb58, #f1c232);
+    color: #613a00;
+    font-weight: 800;
+    box-shadow: 0 4px 16px rgba(247, 195, 12, 0.9);
+}
+
+.tw-crown:hover:not(:disabled) {
+    background: linear-gradient(135deg, #f1c232, #cfa209);
+    box-shadow: 0 8px 24px rgba(247, 195, 12, 1);
+}
+
+/* ---------- Result overlay ---------- */
+.tw-result-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(7, 7, 25, 0.88);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 20px;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Carte résultat */
+.tw-result-card {
+    background: #111117;
+    animation: popIn 0.35s ease forwards;
+    border-radius: 18px;
+    padding: 28px 48px 38px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 8px 38px rgba(198, 139, 0, 0.85);
+    text-align: center;
+    color: var(--accent);
+    user-select: none;
+}
+
+.tw-result-card h2 {
+    margin-top: 0;
+    font-size: 2rem;
+    margin-bottom: 14px;
+    color: var(--gold-2);
+    text-shadow: 0 0 12px rgba(255, 215, 50, 0.7);
+}
+
+.tw-result-img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 4px 12px rgba(255, 215, 50, 0.7));
+}
+
+.tw-result-prize {
+    font-size: 1.7rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    text-shadow: 0 0 10px rgba(255, 255, 170, 0.7);
+}
+
+.tw-result-text {
+    font-size: 1.05rem;
+    margin-bottom: 18px;
+    color: #d4d2b0;
+}
+
+/* Actions résultat */
+.tw-result-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.tw-result-actions .tw-btn {
+    min-width: 120px;
+    padding: 12px 24px;
+    font-size: 1.1rem;
+}
+
+.tw-result-actions .tw-play-again {
+    background: var(--deep);
+    color: #e0e0e0;
+    box-shadow: 0 4px 14px rgba(0, 140, 255, 0.75);
+}
+
+.tw-result-actions .tw-play-again:hover:not(:disabled) {
+    background: #007aff;
+    box-shadow: 0 8px 24px rgba(0, 140, 255, 1);
+}
+.tw-btn:active:not(:disabled) {
+    transform: scale(0.96);
+}
+.seg-text {
+    font-family: "Poppins", sans-serif;
+}
+
+.welcome-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 0, 24, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.welcome-panel {
+  background: linear-gradient(135deg, #ff9f00, #ffb84d);
+  color: #fff;
+  padding: 30px 40px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  animation: slideUp 0.5s ease-out;
+}
+
+.welcome-panel h2 {
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+}
+
+.welcome-panel p {
+  margin-bottom: 25px;
+  font-size: 1.1rem;
+}
+
+.welcome-panel button {
+  padding: 12px 25px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  background-color: #e0dfdf;
+  color: #ff9f00;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.welcome-panel button:hover {
+  transform: scale(1.05);
+}
+
+
+/* ---------- Animations (une seule fois) ---------- */
+@keyframes pointerBobb {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes slowGlow {
+    0% { box-shadow: 0 0 20px rgba(255, 100, 100, 0.8); }
+    100% { box-shadow: 0 0 40px rgba(255, 100, 100, 1); }
+}
+@keyframes popIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0 } to { opacity: 1 }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0 } 
+  to { transform: translateY(0); opacity: 1 }
+}
+
+
+/* ============================ Responsive design ============================ */
+@media (max-width: 768px) { /* Mobile et petites tablettes */
+    .tw-wheel-wrap { width: 90vw; }
+    .tw-wheel { width: 90vw; height: 90vw; }
+    .seg-img { width: 90px; height: 90px; right: 20px; top: 80px; }
+    .seg-text { font-size: 1rem; right: 30px; top: 120px; }
+    .tw-pointer { top: 4px; }
+    .tw-pointer-tip { border-left-width: 18px; border-right-width: 18px; border-top-width: 32px; }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) { /* Tablettes larges */
+    .tw-wheel-wrap { width: 70vw; }
+    .tw-wheel { width: 70vw; height: 70vw; }
+    .seg-img { width: 110px; height: 110px; right: 30px; top: 100px; }
+    .seg-text { font-size: 1.2rem; right: 40px; top: 140px; }
+}
+
+@media (min-width: 1440px) { /* TV ou grands écrans */
+    .tw-wheel-wrap { width: 45vw; }
+    .tw-wheel { width: 45vw; height: 45vw; }
+    .seg-img { width: 180px; height: 180px; right: 50px; top: 140px; }
+    .seg-text { font-size: 1.6rem; right: 60px; top: 200px; }
+    .tw-pointer-tip { border-left-width: 28px; border-right-width: 28px; border-top-width: 50px; }
+}

@@ -1,0 +1,53 @@
+/* Fond noir et centrer le contenu */
+.landing-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #000125, #1d0000);
+  overflow: hidden;
+  text-align: center;
+  padding: 0 20px;
+}
+
+/* Texte premium avec effet glow */
+.landing-title {
+  font-size: 4rem;
+  font-weight: 900;
+  background: linear-gradient(90deg, #ff00ff, #00ffff, #ffdd00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glow 2.5s ease-in-out infinite alternate;
+}
+
+/* Animation glow subtile */
+@keyframes glow {
+  0% {
+    filter: drop-shadow(0 0 5px #ff00ff)
+            drop-shadow(0 0 10px #ff00ff)
+            drop-shadow(0 0 20px #00ffff);
+  }
+  50% {
+    filter: drop-shadow(0 0 10px #ff00ff)
+            drop-shadow(0 0 20px #00ffff)
+            drop-shadow(0 0 30px #ffdd00);
+  }
+  100% {
+    filter: drop-shadow(0 0 5px #ff00ff)
+            drop-shadow(0 0 10px #ff00ff)
+            drop-shadow(0 0 20px #00ffff);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .landing-title {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-title {
+    font-size: 2rem;
+  }
+}
