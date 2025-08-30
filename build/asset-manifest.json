@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.24f8f581.css",
+    "main.js": "/static/js/main.de3da7f8.js",
+    "static/js/453.c1ccaff7.chunk.js": "/static/js/453.c1ccaff7.chunk.js",
+    "static/media/applause.mp3": "/static/media/applause.ed9b5d8e9105fc1e9040.mp3",
+    "static/media/samsung.png": "/static/media/samsung.87f55a37381e91b28897.png",
+    "static/media/nintendo.png": "/static/media/nintendo.a1a883ceae77095c21ef.png",
+    "static/media/pc.png": "/static/media/pc.f1319da137a0ff59a80b.png",
+    "index.html": "/index.html",
+    "main.24f8f581.css.map": "/static/css/main.24f8f581.css.map",
+    "main.de3da7f8.js.map": "/static/js/main.de3da7f8.js.map",
+    "453.c1ccaff7.chunk.js.map": "/static/js/453.c1ccaff7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.24f8f581.css",
+    "static/js/main.de3da7f8.js"
+  ]
+}
