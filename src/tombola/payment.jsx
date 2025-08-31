@@ -20,8 +20,8 @@ import "./payment.css";
  *  - GET /api/user-tickets?email=...   (recommended)
  *    returns: { tickets: number, email, updatedAt }
  *
- * Backend notes (server-side): create transaction server-side, call CinetPay API securely,
- * persist transaction (qty, email, bonus...) and implement webhook /api/cinetpay-notify to
+ * Backend notes (server-side): create transaction server-side, call FedaPay API securely,
+ * persist transaction (qty, email, bonus...) and implement webhook /api/fedapay-notify to
  * validate & credit tickets in Firestore (admin).
  */
 
@@ -269,7 +269,7 @@ const handlePayment = async () => {
     setTransactionId(txId);
     setMessage("Redirection vers la page de paiement sécurisée...");
 
-    // Redirection immédiate vers CinetPay
+    // Redirection immédiate vers FedaPay
     window.location.assign(paymentUrl);
 
   } catch (err) {
