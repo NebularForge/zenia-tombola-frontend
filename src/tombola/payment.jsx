@@ -1,8 +1,9 @@
 // src/pages/PaymentPage.jsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
 import { db } from "../firebase"; // ton client Firestore (lecture)
+
 // styles
 import "./payment.css";
 
@@ -63,9 +64,9 @@ export default function PaymentPage() {
     };
   }, []);
 
-  const isValidEmail = (e) => !!e && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
-const [isVisible, setIsVisible] = useState(false);
+const isValidEmail = (e) => !!e && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
 
+const [isVisible, setIsVisible] = useState(false);
 useEffect(() => {
   const params = new URLSearchParams(window.location.search);
   const status = params.get("status");
@@ -74,16 +75,15 @@ useEffect(() => {
     setMessage("Paiement annulé ❌");
     setIsVisible(true);
 
+    // Message visible 2 secondes
     const timer = setTimeout(() => {
-      setIsVisible(false); // fade out
-      setTimeout(() => setMessage(""), 500); // après l’animation, on supprime
-    }, 5000);
+      setIsVisible(false); // démarre le fade-out
+      setTimeout(() => setMessage(""), 500); // supprime le message après l'animation
+    }, 2000); // ← ici on met 2 secondes
 
     return () => clearTimeout(timer);
   }
 }, []);
-
-
 
   // Try to read user tickets from backend API; if fails, fallback to client Firestore read
   const fetchUserTickets = async (emailToFetch) => {
@@ -186,10 +186,30 @@ useEffect(() => {
 
         if (status === "ACCEPTED" || status === "APPROVED") {
           setMessage("Paiement confirmé ✓ Récupération des tickets...");
-          // Try to fetch updated tickets from backend (recommended)
-          await fetchUserTickets(email);
+          /* Try to fetch updated tickets from backend (recommended)
+          await fetchUserTickets(email); */
           setLoading(false);
           // redirect to tombola page after a short pause
+          try {
+  const userRef = doc(db, "utilisateurs", email);
+  const snap = await getDoc(userRef);
+
+  if (snap.exists()) {
+    const currentTickets = snap.data().tickets || 0;
+    await updateDoc(userRef, {
+      tickets: currentTickets + qty + bonusTickets
+    });
+  } else {
+    await setDoc(userRef, {
+      email,
+      tickets: qty + bonusTickets,
+      createdAt: new Date()
+    })
+  }
+} catch (err) {
+  console.error("Erreur mise à jour Firestore :", err);
+}
+
           setTimeout(() => {
             window.location.href = `/tombola?added=${qty + bonusTickets}&email=${encodeURIComponent(email)}`;
           }, 900);
@@ -368,11 +388,12 @@ const handlePayment = async () => {
            Conseil : Nous vous recommandons d’acheter au moins 10 tickets afin de bénéficier d’un bonus d’un ticket offert.
           </p>
         </div>
-        {message && (
+       {message && (
   <div className={`overlay ${!isVisible ? "hide" : ""}`}>
     <div className="overlay-content">{message}</div>
   </div>
 )}
+
       </div>
     </div>
   );

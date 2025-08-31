@@ -81,7 +81,7 @@ useEffect(() => {
     if (userSnap.exists()) {
       currentTickets = userSnap.data().tickets || 0;
     }
-    setTickets(currentTickets + addedTickets);
+    setTickets(currentTickets);
   };
 
   fetchTickets();
@@ -102,7 +102,7 @@ useEffect(() => {
   };
 
   // ======================= Fonction spin =======================
-  const spin = () => {
+  const spin = async () => {
     if (spinning) return;
     setResult(null);
     setSpinning(true);
@@ -122,7 +122,7 @@ useEffect(() => {
     
 
 
-    setTimeout(() => {
+    setTimeout(async () => {
       // Reset rotation pour animations futures
       wheel.style.transition = "none";
       const normalized = finalRotation % 360;
@@ -142,21 +142,30 @@ if (SEGMENTS[winningIndex].label !== "Perdu") {
     applause.play().catch(err => console.error("Erreur lecture audio :", err));
 }
     
-    if (tickets <= 0) return; // déjà dans disabled du bouton
+   if (tickets <= 0) {
+  alert("Plus de tickets !");
+  return;
+}
 
-// Mettre à jour Firestore si email connu
-
-setTickets(prev => {
-  const newTickets = prev - 1;
-  if (userEmail) {
+if (userEmail) {
+  try {
     const userRef = doc(db, "utilisateurs", userEmail);
-    updateDoc(userRef, { tickets: newTickets }).catch(console.error);
+    const snap = await getDoc(userRef);
+    if (!snap.exists() || (snap.data().tickets || 0) <= 0) {
+      alert("Plus de tickets disponibles !");
+      return;
+    }
+
+    const newTickets = (snap.data().tickets || 0) - 1;
+    await updateDoc(userRef, { tickets: newTickets });
+    setTickets(newTickets);
+  } catch (err) {
+    console.error("Erreur Firestore :", err);
   }
-  return newTickets;
-});
+}
 
 
-      setTimeout(() => {
+      setTimeout(async () => {
         segElements[winningIndex]?.classList.remove("tw-segment-win");
       }, 3000);
 
