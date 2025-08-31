@@ -10,21 +10,16 @@ import confetti from "canvas-confetti";
 
 // ======================= Définition des segments =======================
 const SEGMENTS = [
-  // ------------------ Jackpot ------------------------
 { id: 0, label: "Ordinateur portable HP Elitebook core i5 Tactile", type: "image", img: pc, chance: 1.5 },
 { id: 1, label: "Nintendo switch 2", type: "image", img: nintendo, chance: 2 },
-{ id: 2, label: "Samsung A16", type: "image", img: samsung, chance: 3 },
-
-// ------------------ Argent ------------------------
-{ id: 3, label: "1000 CFA", type: "text", chance: 15 },
-{ id: 4, label: "2000 CFA", type: "text", chance: 12 },
-{ id: 5, label: "3000 CFA", type: "text", chance: 10 },
-{ id: 6, label: "5000 CFA", type: "text", chance: 8 },
-
-// ------------------ Perdu ------------------------
-{ id: 7, label: "Perdu", type: "text", chance: 20 },
-{ id: 8, label: "Perdu", type: "text", chance: 20 },
-{ id: 9, label: "Perdu", type: "text", chance: 20 },
+{ id: 2, label: "Perdu", type: "text", chance: 17.167 },
+{ id: 3, label: "Samsung A16", type: "image", img: samsung, chance: 3 },
+{ id: 4, label: "1000 CFA", type: "text", chance: 15 },
+{ id: 5, label: "2000 CFA", type: "text", chance: 12 },
+{ id: 6, label: "Perdu", type: "text", chance: 17.167 },
+{ id: 7, label: "3000 CFA", type: "text", chance: 10 },
+{ id: 8, label: "5000 CFA", type: "text", chance: 8 },
+{ id: 9, label: "Perdu", type: "text", chance: 17.167 },
 
 ];
 
