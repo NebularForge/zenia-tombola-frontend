@@ -64,23 +64,24 @@ export default function PaymentPage() {
   }, []);
 
   const isValidEmail = (e) => !!e && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+const [isVisible, setIsVisible] = useState(false);
+
 useEffect(() => {
   const params = new URLSearchParams(window.location.search);
   const status = params.get("status");
-  
+
   if (status === "canceled") {
     setMessage("Paiement annulé ❌");
+    setIsVisible(true);
 
-    // Retour automatique après 5 secondes
     const timer = setTimeout(() => {
-      window.history.back(); // ou window.location.href = '/payment-page';
+      setIsVisible(false); // fade out
+      setTimeout(() => setMessage(""), 500); // après l’animation, on supprime
     }, 5000);
 
-    // Nettoyage si le composant se démonte avant 5s
     return () => clearTimeout(timer);
   }
 }, []);
-
 
 
 
@@ -368,7 +369,7 @@ const handlePayment = async () => {
           </p>
         </div>
         {message && (
-  <div className="overlay">
+  <div className={`overlay ${!isVisible ? "hide" : ""}`}>
     <div className="overlay-content">{message}</div>
   </div>
 )}
