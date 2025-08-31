@@ -5,6 +5,7 @@ import Delivery from "./tombola/delivery";
 import Cash from "./tombola/cash";
 import PaymentPage from "./tombola/payment";
 import LandingPage from "./tombola/landing";
+import PaymentResult from "./tombola/PaymentResult";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Route path="/delivery" element={<Delivery />} />
       <Route path="/cash" element={<Cash />} />
       <Route path="/payment" element={<PaymentPage />} />
+      <Route path="/payment-result" element={<PaymentResult />} />
     </Routes>
   );
 }
