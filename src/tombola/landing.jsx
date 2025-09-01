@@ -6,10 +6,10 @@ export default function LandingPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Redirige vers "/tombola" après 3 secondes
+    // Redirige vers "/tombola" après 5 secondes
     const timer = setTimeout(() => {
       navigate("/tombola");
-    }, 3000);
+    }, 5000);
 
     // Nettoyage du timer si le composant est démonté avant
     return () => clearTimeout(timer);
