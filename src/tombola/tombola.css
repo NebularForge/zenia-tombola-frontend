@@ -152,11 +152,12 @@ filter: blur(0.5px);
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: 10px; /* ajuster la position verticale */
+    top: 30px; /* ⬅ Descendue par rapport à 10px */
     z-index: 40;
     pointer-events: none;
     filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.6));
 }
+
 
 /* La pointe de la flèche en or */
 .tw-pointer-tip {
