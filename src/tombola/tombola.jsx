@@ -51,25 +51,29 @@ useEffect(() => {
   setUserEmail(email);
 
   const checkFirstVisit = async () => {
-      try {
-        const userRef = doc(db, "utilisateurs", email);
-        const userSnap = await getDoc(userRef);
+  try {
+    const userRef = doc(db, "utilisateurs", email);
+    const userSnap = await getDoc(userRef);
 
-        if (!userSnap.exists() || !userSnap.data().hasVisitedTombola) {
-          setShowWelcome(true);
-          // On mettra à jour Firestore pour dire qu'il est venu
-          if (userSnap.exists()) {
-            await updateDoc(userRef, { hasVisitedTombola: true });
-          } else {
-            await setDoc(userRef, { email, tickets: addedTickets, hasVisitedTombola: true, createdAt: new Date() });
-          }
-        }
-      } catch (err) {
-        console.error("Erreur checkFirstVisit:", err);
+    if (!userSnap.exists() || !userSnap.data().hasVisitedTombola) {
+      setShowWelcome(true);
+      // Mettre à jour Firestore pour indiquer que l'utilisateur est venu
+      if (userSnap.exists()) {
+        await updateDoc(userRef, { hasVisitedTombola: true });
+      } else {
+        await setDoc(userRef, {
+          email,
+          hasVisitedTombola: true,
+          createdAt: new Date()
+        });
       }
-    };
+    }
+  } catch (err) {
+    console.error("Erreur checkFirstVisit:", err);
+  }
+};
 
-    checkFirstVisit();
+checkFirstVisit();
 
   const fetchTickets = async () => {
     const userRef = doc(db, "utilisateurs", email);
