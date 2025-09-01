@@ -125,6 +125,31 @@ filter: blur(0.5px);
     opacity: 0.6;
 }
 
+/* Titre principal */
+.tw-title {
+  font-size: 2.5rem; /* grande taille */
+  font-weight: 900;
+  color: #FFD700; /* doré */
+  text-align: center;
+  text-shadow: 
+    0 2px 5px rgba(0,0,0,0.3), 
+    0 0 15px rgba(255,215,0,0.5); /* effet lumineux */
+  margin-bottom: 10px;
+  line-height: 1.2;
+  transition: transform 0.3s ease;
+}
+
+/* Sous-titre / description */
+.tw-sub {
+  font-size: 1.2rem;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+
 /* ---------- Center / Wheel wrap ---------- */
 .tw-center {
     display: flex;
@@ -741,6 +766,13 @@ animation: btnGradient 4s ease infinite;
 @media (max-width: 768px) {
     .tw-wheel-wrap { width: 90vw; }
     .tw-wheel { width: 90vw; height: 90vw; }
+    .tw-title {
+    font-size: 2rem;
+  }
+  .tw-sub {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
     .seg-img { width: 80px; height: 80px; right: 20px; top: 80px; }
     .seg-text { font-size: 1rem; right: 30px; top: 120px; }
     .tw-pointer { top: 20px; } /* déplacé vers le bas */
@@ -750,6 +782,12 @@ animation: btnGradient 4s ease infinite;
 /* Tablettes larges */
 @media (min-width: 769px) and (max-width: 1024px) {
     .tw-wheel-wrap { width: 70vw; }
+     .tw-title {
+    font-size: 2.3rem;
+  }
+  .tw-sub {
+    font-size: 1.1rem;
+  }
     .tw-wheel { width: 70vw; height: 70vw; }
     .seg-img { width: 100px; height: 100px; right: 30px; top: 100px; }
     .seg-text { font-size: 1.2rem; right: 40px; top: 140px; }
@@ -758,6 +796,12 @@ animation: btnGradient 4s ease infinite;
 
 /* TV ou grands écrans */
 @media (min-width: 1440px) {
+     .tw-title {
+    font-size: 3rem;
+  }
+  .tw-sub {
+    font-size: 1.3rem;
+  }
     .tw-wheel-wrap { width: 45vw; }
     .tw-wheel { width: 45vw; height: 45vw; }
     .seg-img { width: 170px; height: 170px; right: 50px; top: 140px; }

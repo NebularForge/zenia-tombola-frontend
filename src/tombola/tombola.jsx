@@ -181,27 +181,10 @@ if (userEmail) {
       {/* ----- Header ----- */}
       <div className="tw-header">
 
-      {/* ----- Overlay Bienvenue ----- */}
-{showWelcome && (
-  <div className="overlay welcome-overlay">
-    <div className="overlay-panel welcome-panel">
-      <h2>🎉 Bienvenue dans la Tombola Royale ! de Zenia</h2>
-      <p>Nous sommes ravis de vous voir ! Achetez vos tickets à 500CFA seulement et tentez de gagner des lots incroyables.</p>
-      <button
-        className="tw-btn tw-validate"
-        onClick={() => setShowWelcome(false)}
-      >
-        Commencer à jouer
-      </button>
-    </div>
-  </div>
-)}
-
-
         <div className="ticket-counter">
         🎟 Tickets : {tickets}
       </div>
-        <h1>🎡 Tombola Royale — Zenia</h1>
+        <h1 className="tw-title">🎡 Tombola Royale — Zenia</h1>
         <p className="tw-sub">
           Clique sur <strong>Tourner</strong> pour tenter ta chance pour gagner des lots incroyables.
         </p>
@@ -321,6 +304,23 @@ if (userEmail) {
     </div>
   </div>
 )}
+
+      {/* ----- Overlay Bienvenue ----- */}
+{showWelcome && (
+  <div className="overlay welcome-overlay">
+    <div className="overlay-panel welcome-panel">
+      <h2>🎉 Bienvenue dans la Tombola Royale ! de Zenia</h2>
+      <p>Nous sommes ravis de vous voir ! Achetez vos tickets à 500CFA seulement et tentez de gagner des lots incroyables.</p>
+      <button
+        className="tw-btn tw-validate"
+        onClick={() => setShowWelcome(false)}
+      >
+        Commencer à jouer
+      </button>
+    </div>
+  </div>
+)}
+
 
       {/* ----- Résultat ----- */}
       {result && (
