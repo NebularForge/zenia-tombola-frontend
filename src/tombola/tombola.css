@@ -773,6 +773,15 @@ animation: btnGradient 4s ease infinite;
     font-size: 1rem;
     padding: 0 10px;
   }
+
+  .ticket-counter {
+    left: 20px;          /* plus proche du bord */
+    top: 15px;           /* légèrement plus bas */
+    font-size: 16px;     /* texte plus petit */
+    padding: 8px 15px;   /* padding réduit */
+    border-radius: 20px; /* légèrement moins arrondi */
+  }
+
     .seg-img { width: 80px; height: 80px; right: 20px; top: 80px; }
     .seg-text { font-size: 1rem; right: 30px; top: 120px; }
     .tw-pointer { top: 20px; } /* déplacé vers le bas */
@@ -788,6 +797,14 @@ animation: btnGradient 4s ease infinite;
   .tw-sub {
     font-size: 1.1rem;
   }
+
+  .ticket-counter {
+    left: 50px;          /* ajustement position */
+    top: 18px;
+    font-size: 18px;     /* taille un peu plus grande */
+    padding: 10px 18px;
+    border-radius: 22px;
+  }
     .tw-wheel { width: 70vw; height: 70vw; }
     .seg-img { width: 100px; height: 100px; right: 30px; top: 100px; }
     .seg-text { font-size: 1.2rem; right: 40px; top: 140px; }
@@ -801,6 +818,13 @@ animation: btnGradient 4s ease infinite;
   }
   .tw-sub {
     font-size: 1.3rem;
+  }
+  .ticket-counter {
+    left: 150px;         /* plus éloigné du bord */
+    top: 25px;
+    font-size: 22px;     /* texte plus grand */
+    padding: 14px 25px;
+    border-radius: 28px;
   }
     .tw-wheel-wrap { width: 45vw; }
     .tw-wheel { width: 45vw; height: 45vw; }
