@@ -102,7 +102,7 @@ export default function Cash() {
             <h2>🎉 Félicitations !</h2>
             <p>
               Nous avons bien reçu votre formulaire pour <strong>{prize.label}</strong>.<br />
-              Nous préparons votre transfert. D'ici 24h vous recevrez votre argent, mais si vous ne le recevez pas sous 24h, veuillez nous contacter.
+              Nous préparons votre transfert. D'ici 24h vous recevrez votre argent, mais si vous ne le recevez pas sous 24h, veuillez nous contacter sur <a href="https://web.facebook.com/profile.php?id=61576738621166" className="link">Facebook</a>
             </p>
             <button onClick={() => navigate("/tombola")}>OK</button>
           </div>
