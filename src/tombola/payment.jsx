@@ -315,25 +315,25 @@ const handlePayment = async () => {
     <div className="payment-page">
       <h1>Paiement — Tombola Royale</h1>
 
-      <div className="card">
-        <div className="row">
+      <div className="card-payment">
+        <div className="row-payment">
           <div>Nombre de tickets :</div>
           <div><strong>{qty}</strong></div>
         </div>
 
-        <div className="row">
+        <div className="row-payment">
           <div>Montant total (affiché) :</div>
           <div><strong>{montantTotal} CFA</strong></div>
         </div>
 
         {bonusTickets > 0 && (
-          <div className="row">
+          <div className="row-payment">
             <div>Bonus :</div>
             <div><strong>{bonusTickets} ticket(s) gratuit(s) 🎁</strong></div>
           </div>
         )}
 
-        <div className="form-group" style={{ marginTop: 12 }}>
+        <div className="form-group-payment" style={{ marginTop: 12 }}>
           <input
             type="text"
             placeholder="Nom"
@@ -352,7 +352,7 @@ const handlePayment = async () => {
 
         <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
           <button
-            className="btn-pay"
+            className="btn-payment"
             onClick={handlePayment}
             disabled={loading || polling}
             title="Payer maintenant"
@@ -373,7 +373,7 @@ const handlePayment = async () => {
         </div>
 
 
-        <div className="info" style={{ marginTop: 10 }}>
+        <div className="info-payment" style={{ marginTop: 10 }}>
           <small>{message}</small>
           {userTickets !== null && (
             <div style={{ marginTop: 8 }}>
@@ -383,7 +383,7 @@ const handlePayment = async () => {
           {!userTickets && <small style={{ color: "#666", display: "block", marginTop: 8 }}>Entrez votre email puis cliquez sur "Rafraîchir" pour voir vos tickets.</small>}
         </div>
 
-        <div className="notes" style={{ marginTop: 12 }}>
+        <div className="notes-payment" style={{ marginTop: 12 }}>
           <p style={{ margin: 0 }}>
            Conseil : Nous vous recommandons d’acheter au moins 10 tickets afin de bénéficier d’un bonus d’un ticket offert.
           </p>
