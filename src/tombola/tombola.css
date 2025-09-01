@@ -40,7 +40,10 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background: #000; /* Fond noir pour le ciel étoilé */
+    background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.04), transparent 30%),
+            radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.03), transparent 25%),
+            linear-gradient(180deg, #07002c, #000000);
+
     overflow-x: hidden;
 }
 
@@ -57,6 +60,7 @@ html, body {
     gap: 8px;
     position: relative;
     overflow: hidden; /* Pour cacher les étoiles en dehors */
+    animation: bgMove 15s ease-in-out infinite alternate;
 }
 
 /* --- Ajout du ciel étoilé avec pseudo-éléments --- */
@@ -84,6 +88,9 @@ html, body {
                       radial-gradient(1px 1px at 400px 400px, #fff, transparent);
     opacity: 0.6;
     animation-duration: 120s;
+    background-size: 400px 400px;
+filter: blur(0.5px);
+
 }
 
 /* --- Deuxième couche (grandes étoiles scintillantes) --- */
@@ -94,6 +101,8 @@ html, body {
                       radial-gradient(2px 2px at 240px 300px, #ffd700, transparent),
                       radial-gradient(2px 2px at 350px 450px, #fff, transparent);
     opacity: 0.8;
+    background-size: 400px 400px;
+filter: blur(0.5px);
     animation: moveStars 180s linear infinite, twinkle 3s ease-in-out infinite alternate;
 }
 
@@ -105,10 +114,10 @@ html, body {
 
 /* --- Animation scintillement --- */
 @keyframes twinkle {
-    0% { opacity: 0.4; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.2); }
-    100% { opacity: 0.6; transform: scale(1); }
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.3) rotate(5deg); }
 }
+
 
 
 .tw-page.spinning .tw-btn {
@@ -172,8 +181,15 @@ html, body {
     height: 14px;
     background: radial-gradient(circle at 30% 30%, #4a00ff, #9b59b6);
     border-radius: 50%;
+    animation: pulseGlow 2.5s ease-in-out infinite;
     box-shadow: 0 0 20px 6px rgba(75, 0, 255, 0.9);
 }
+
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 15px rgba(75, 0, 255, 0.9); transform: scale(1) rotate(0deg); }
+    50% { box-shadow: 0 0 25px rgba(75, 0, 255, 1); transform: scale(1.1) rotate(3deg); }
+}
+
 
 /* Flèche légère animation d’impulsion */
 .tw-page:not(.spinning) .tw-pointer-tip {
@@ -185,6 +201,7 @@ html, body {
     width: 520px;
     height: 520px;
     border-radius: 50%;
+    animation: slowPulse 6s ease-in-out infinite;
     position: relative;
     margin: 48px auto 0; /* plus d’espace au-dessus pour décaler vers le bas */
     display: block;
@@ -196,6 +213,12 @@ html, body {
     will-change: transform;
     background: transparent;
 }
+
+@keyframes slowPulse {
+    0%, 100% { box-shadow: 0 18px 48px rgba(0, 0, 0, 0.6), inset 0 6px 18px rgba(255, 230, 170, 0.02); }
+    50% { box-shadow: 0 18px 68px rgba(255, 230, 120, 0.3), inset 0 6px 28px rgba(255, 230, 170, 0.08); }
+}
+
 
 /* Anneau brillant autour de la roue */
 .tw-wheel::before {
@@ -418,7 +441,9 @@ input[type="range"] {
 }
 
 .tw-btn {
-    background: var(--gold-1);
+    background: linear-gradient(135deg, #f1c232, #ff9f00);
+background-size: 200% 200%;
+animation: btnGradient 4s ease infinite;
     border: none;
     padding: 14px 36px;
     font-size: 1.15rem;
@@ -431,6 +456,17 @@ input[type="range"] {
     transition: background 0.28s ease, box-shadow 0.28s ease;
     min-width: 160px;
 }
+@keyframes btnGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.tw-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 180, 50, 0.8);
+}
+
 
 .tw-btn:hover:not(:disabled) {
     background: var(--gold-2);
@@ -634,6 +670,10 @@ input[type="range"] {
 @keyframes slideUp {
   from { transform: translateY(30px); opacity: 0 } 
   to { transform: translateY(0); opacity: 1 }
+}
+@keyframes bgMove {
+    0% { background-position: 0 0, 0 0, 0 0; }
+    100% { background-position: 50px 50px, -50px -50px, 0 0; }
 }
 
 

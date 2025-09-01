@@ -1,192 +1,219 @@
-
-
-/* --- Payment Page Container --- */
-.payment-page {
-  width: 90%;
-  max-width: 420px;
-  margin: 30px auto;
-  padding: 30px;
-  background: linear-gradient(135deg, #0a0f2c, #1a1f4b);
+/* 🌌 Fond global avec étoiles et effet galaxie */
+body {
+  background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.05), transparent 25%),
+              radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.03), transparent 25%),
+              linear-gradient(180deg, #000010, #050520);
   color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-family: "Poppins", Arial, sans-serif;
+  overflow-x: hidden;
   min-height: 100vh;
-  border-radius: 16px;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-  text-align: center;
-  animation: fadeIn 1s ease-in-out;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* --- Title --- */
-.payment-page h1 {
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 15px;
-  color: #fff;
-  letter-spacing: 1px;
-}
-
-/* --- Description --- */
-.payment-page p {
-  font-size: 16px;
-  color: #d1d1d1;
-  margin-bottom: 20px;
-}
-
-/* --- Form Group --- */
-.form-group-payment {
-  margin: 15px 0;
-}
-
-.form-group-payment input {
-  width: 100%;
-  padding: 14px 18px;
-  font-size: 16px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  transition: 0.3s;
-}
-
-.form-group-payment input::placeholder {
-  color: #cfcfcf;
-}
-
-.form-group-payment input:focus {
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 0 8px rgba(245, 166, 35, 0.7);
-}
-
-/* --- Button --- */
-.btn-payment {
-  width: 100%;
-  padding: 14px;
-  font-size: 18px;
-  font-weight: 600;
-  color: #fff;
-  background: linear-gradient(135deg, #f5a623, #e07b00);
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.4s ease-in-out;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-payment::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: skewX(-45deg);
-  transition: 0.6s;
-}
-
-.btn-payment:hover::after {
-  left: 150%;
-}
-
-.btn-payment:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(245, 166, 35, 0.6);
-}
-
-/* --- Info --- */
-.info-payment {
-  margin-top: 15px;
-  font-size: 14px;
-  color: #d1d1d1;
-}
-
-/* --- Error Shake Animation --- */
-.error {
-  color: #ff4d4f;
-  margin-top: 15px;
-  font-weight: 600;
-  animation: shake 0.4s ease-in-out;
-}
-
-/* --- Overlay --- */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(10, 10, 20, 0.8);
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 9999;
-  animation: fadeIn 0.5s ease-in-out;
+  align-items: flex-start;
+  padding: 40px 15px;
+  animation: fadeInBody 0.8s ease-in-out;
 }
 
-.overlay-content {
-  background: rgba(255, 255, 255, 0.95);
-  padding: 25px 35px;
-  border-radius: 14px;
-  font-size: 20px;
-  color: #333;
+/* ✨ Ajout des étoiles scintillantes */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 200%; height: 200%;
+  background-repeat: repeat;
+  background-size: 400px 400px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+body::before {
+  background-image: radial-gradient(1px 1px at 20px 30px, #fff, transparent),
+                    radial-gradient(1px 1px at 90px 120px, #fff, transparent),
+                    radial-gradient(1px 1px at 160px 200px, #fff, transparent);
+  opacity: 0.5;
+  animation: moveStars 150s linear infinite;
+}
+
+body::after {
+  background-image: radial-gradient(2px 2px at 50px 80px, #ffd700, transparent),
+                    radial-gradient(2px 2px at 140px 220px, #fff, transparent);
+  opacity: 0.8;
+  animation: moveStars 200s linear infinite, twinkle 4s ease-in-out infinite alternate;
+}
+
+@keyframes moveStars {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-50%, -50%); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+@keyframes fadeInBody {
+  0% { opacity: 0; transform: scale(0.98); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* 🏦 Container principal */
+.payment-page {
+  width: 100%;
+  max-width: 450px;
+  background: rgba(15, 15, 40, 0.7);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
   text-align: center;
-  animation: scaleUp 0.5s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  animation: fadeInCard 0.9s ease;
 }
 
-/* Loader inside overlay */
-.loader {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #f5a623;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-  margin: 0 auto;
-}
-
-/* --- Keyframes --- */
-@keyframes fadeIn {
+@keyframes fadeInCard {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes scaleUp {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+.payment-page h1 {
+  font-size: 26px;
+  margin-bottom: 18px;
+  color: #f1f1f1;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
 }
 
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  20%, 60% { transform: translateX(-6px); }
-  40%, 80% { transform: translateX(6px); }
+/* 🧾 Carte d’infos paiement */
+.card-payment {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 12px;
+  box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.05);
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.row-payment {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0;
+  font-size: 16px;
+  color: #d8d8d8;
 }
 
-/* --- Responsive --- */
-@media (max-width: 500px) {
+/* ✏️ Champs de saisie */
+.form-group-payment input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  outline: none;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+.form-group-payment input:focus {
+  border-color: #ffd700;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+/* 💳 Bouton principal */
+.btn-payment {
+  background: linear-gradient(135deg, #ffb300, #ff8000);
+  color: #fff;
+  border: none;
+  padding: 14px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 12px;
+  cursor: pointer;
+  flex: 1;
+  transition: all 0.4s ease;
+  background-size: 200% 200%;
+  animation: gradientMove 4s ease infinite;
+}
+
+.btn-payment:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 180, 50, 0.8);
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 🔄 Bouton secondaire */
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ℹ️ Info message */
+.info-payment {
+  margin-top: 14px;
+  color: #ccc;
+  font-size: 14px;
+}
+
+/* 🔒 Overlay message (paiement annulé ou info) */
+.overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(10, 10, 25, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  animation: fadeInOverlay 0.5s ease forwards;
+}
+
+.overlay.hide {
+  animation: fadeOutOverlay 0.5s ease forwards;
+}
+
+.overlay-content {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 20px 30px;
+  border-radius: 12px;
+  font-size: 18px;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOutOverlay {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* 📱 Responsive */
+@media (max-width: 600px) {
   .payment-page {
     padding: 20px;
-    margin: 20px;
   }
-
+  .btn-payment, .btn-secondary {
+    font-size: 16px;
+    padding: 12px;
+  }
   .payment-page h1 {
     font-size: 22px;
-  }
-
-  .btn-payment {
-    font-size: 16px;
   }
 }
