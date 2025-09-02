@@ -202,21 +202,18 @@ if (userEmail) {
             <div
               className="tw-wheel-face"
              style={{
-  background: `
-    radial-gradient(circle at center, rgba(255, 215, 0, 0.1), transparent 70%),
-    conic-gradient(
-      #c68b00 0deg 20deg,
-      #a64f00 36deg 56deg,
-      #c68b00 72deg 92deg,
-      #a64f00 108deg 128deg,
-      #c68b00 144deg 164deg,
-      #a64f00 180deg 200deg,
-      #c68b00 216deg 236deg,
-      #a64f00 252deg 272deg,
-      #c68b00 288deg 308deg,
-      #a64f00 324deg 360deg
-    )
-  `,
+  background: `conic-gradient(
+    #c68b00 0deg 36deg,
+    #a64f00 36deg 72deg,
+    #c68b00 72deg 108deg,
+    #a64f00 108deg 144deg,
+    #c68b00 144deg 180deg,
+    #a64f00 180deg 216deg,
+    #c68b00 216deg 252deg,
+    #a64f00 252deg 288deg,
+    #c68b00 288deg 324deg,
+    #a64f00 324deg 360deg
+  )`,
 }}
 
             />
