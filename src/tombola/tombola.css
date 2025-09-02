@@ -570,6 +570,42 @@ animation: btnGradient 4s ease infinite;
     color: #999;
 }
 
+/* ✅ Bouton Valider (principal) */
+.tw-validate {
+  background: linear-gradient(135deg, #ef9b4c, #1976d2);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(25, 118, 210, 0.4);
+}
+
+.tw-validate:hover {
+  background: linear-gradient(135deg, #d25d19, #4cafef);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(25, 118, 210, 0.6);
+}
+
+.tw-validate:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+}
+
+/* ✅ Bouton Annuler (secondaire) */
+.tw-cancel {
+  background: transparent;
+  color: #333;
+  border: 2px solid #ccc;
+}
+
+.tw-cancel:hover {
+  background: #f5f5f5;
+  color: #000;
+  transform: translateY(-2px);
+}
+
+.tw-cancel:active {
+  transform: translateY(1px);
+}
+
+
 /* Bouton "grands gagnants" */
 .tw-crown {
     background: linear-gradient(135deg, #ffdb58, #f1c232);
