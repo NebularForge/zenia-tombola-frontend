@@ -575,6 +575,7 @@ animation: btnGradient 4s ease infinite;
   background: linear-gradient(135deg, #ef9b4c, #1976d2);
   color: #fff;
   box-shadow: 0 6px 18px rgba(25, 118, 210, 0.4);
+  margin-bottom: 12px; /* ✅ espace entre les boutons */
 }
 
 .tw-validate:hover {
