@@ -75,11 +75,11 @@ useEffect(() => {
     setMessage("Paiement annulé ❌");
     setIsVisible(true);
 
-    // Message visible 2 secondes
+    // Message visible 5 secondes
     const timer = setTimeout(() => {
       setIsVisible(false); // démarre le fade-out
       setTimeout(() => setMessage(""), 500); // supprime le message après l'animation
-    }, 2000); // ← ici on met 2 secondes
+    }, 5000); // ← ici on met 5 secondes
 
     return () => clearTimeout(timer);
   }

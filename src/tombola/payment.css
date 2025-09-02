@@ -204,16 +204,101 @@ body::after {
   to { opacity: 0; }
 }
 
-/* 📱 Responsive */
-@media (max-width: 600px) {
+/* ✅ Responsive Design */
+
+/* 📱 Petits écrans (smartphones) */
+@media (max-width: 480px) {
+  body {
+    padding: 20px 10px;
+    align-items: flex-start;
+  }
+
   .payment-page {
+    max-width: 100%;
     padding: 20px;
+    border-radius: 12px;
   }
-  .btn-payment, .btn-secondary {
-    font-size: 16px;
-    padding: 12px;
-  }
+
   .payment-page h1 {
     font-size: 22px;
+    margin-bottom: 12px;
+  }
+
+  .card-payment {
+    padding: 15px;
+  }
+
+  .row-payment {
+    font-size: 14px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .form-group-payment input {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .btn-payment {
+    font-size: 16px;
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .btn-secondary {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .info-payment {
+    font-size: 12px;
+  }
+
+  .overlay-content {
+    font-size: 16px;
+    padding: 15px 20px;
+  }
+}
+
+/* 📲 Tablettes (entre 481px et 768px) */
+@media (max-width: 768px) {
+  body {
+    padding: 30px 15px;
+  }
+
+  .payment-page {
+    max-width: 90%;
+    padding: 25px;
+  }
+
+  .payment-page h1 {
+    font-size: 24px;
+  }
+
+  .row-payment {
+    font-size: 15px;
+  }
+
+  .form-group-payment input {
+    font-size: 15px;
+    padding: 11px;
+  }
+
+  .btn-payment {
+    font-size: 17px;
+    padding: 13px;
+  }
+
+  .btn-secondary {
+    font-size: 15px;
+    padding: 13px;
+  }
+}
+
+/* 🖥 Pour grands écrans (amélioration visuelle si nécessaire) */
+@media (min-width: 1200px) {
+  .payment-page {
+    max-width: 500px;
   }
 }
