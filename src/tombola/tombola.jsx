@@ -206,23 +206,14 @@ if (userEmail) {
     radial-gradient(circle at center, rgba(255, 215, 0, 0.1), transparent 70%),
     conic-gradient(
       #c68b00 0deg 20deg,
-      rgba(0, 255, 0, 0.2) 20deg 36deg,
       #a64f00 36deg 56deg,
-      rgba(0, 0, 255, 0.2) 56deg 72deg,
       #c68b00 72deg 92deg,
-      rgba(255, 0, 0, 0.2) 92deg 108deg,
       #a64f00 108deg 128deg,
-      rgba(255, 255, 0, 0.2) 128deg 144deg,
       #c68b00 144deg 164deg,
-      rgba(255, 0, 255, 0.2) 164deg 180deg,
       #a64f00 180deg 200deg,
-      rgba(0, 255, 255, 0.2) 200deg 216deg,
       #c68b00 216deg 236deg,
-      rgba(255, 165, 0, 0.2) 236deg 252deg,
       #a64f00 252deg 272deg,
-      rgba(128, 0, 128, 0.2) 272deg 288deg,
       #c68b00 288deg 308deg,
-      rgba(0, 128, 0, 0.2) 308deg 324deg,
       #a64f00 324deg 360deg
     )
   `,

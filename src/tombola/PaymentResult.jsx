@@ -50,6 +50,14 @@ const PaymentResult = () => {
         </p>
       </>
     )}
+
+<button onClick={() => {
+  navigate(status === "success" ? "/tombola" : "/payment");
+}}>
+  Aller maintenant
+</button>
+
+
     <div className="progress-bar">
       <div className="progress-bar-inner"></div>
     </div>

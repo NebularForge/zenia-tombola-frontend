@@ -10,6 +10,14 @@
   box-sizing: border-box;
 }
 
+.card.success .progress-bar-inner {
+  background-color: #16a34a;
+}
+.card.failed .progress-bar-inner {
+  background-color: #dc2626;
+}
+
+
 /* Carte blanche centrale */
 .card {
   background: #3a3a3a;
@@ -58,6 +66,8 @@
 .card p span {
   font-weight: bold;
   color: #ffffff;
+  display: inline-block;
+  animation: pop 0.7s ease-out;
 }
 
 /* Barre de progression */

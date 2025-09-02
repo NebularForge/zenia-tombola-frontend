@@ -168,6 +168,16 @@ body::after {
   font-size: 14px;
 }
 
+.payment-success {
+  animation: popSuccess 0.7s ease forwards;
+}
+
+@keyframes popSuccess {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+
 /* 🔒 Overlay message (paiement annulé ou info) */
 .overlay {
   position: fixed;

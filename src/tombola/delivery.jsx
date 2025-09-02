@@ -58,11 +58,13 @@ export default function Livraison() {
       });
 
       // Feu d'artifice
-      confetti({
-        particleCount: 150,
-        spread: 70,
-        origin: { y: 0.6 },
-      });
+confetti({
+  particleCount: 200,
+  angle: 60,
+  spread: 120,
+  origin: { x: 0.5, y: 0.6 },
+  colors: ['#ffb400', '#6a5dfc', '#ff5e5e']
+});
 
       setSubmitted(true);
     } catch (err) {
